@@ -1,6 +1,7 @@
 import turtle
 import ball
 
+'''
 num_balls = int(input("Number of balls to simulate: "))
 turtle.speed(0)
 turtle.tracer(0)
@@ -24,4 +25,26 @@ while (True):
     turtle.update()
 
 # hold the window; close it by clicking the window close 'x' mark
+turtle.done()
+'''
+
+num_balls = int(input("Number of balls to simulate: "))
+turtle.speed(0)
+turtle.tracer(0)
+turtle.hideturtle()
+canvas_width = turtle.screensize()[0]
+canvas_height = turtle.screensize()[1]
+ball_radius = 0.05 * canvas_width
+turtle.colormode(255)
+
+balls = ball.initilizing(canvas_width, canvas_height, ball_radius, num_balls)
+
+while True:
+    # Update and redraw each ball in the simulation
+    turtle.clear()
+    for ball in balls:
+        ball.draw_circle()
+        ball.move_circle(canvas_width, canvas_height)
+    turtle.update()
+
 turtle.done()

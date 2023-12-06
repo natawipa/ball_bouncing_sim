@@ -1,6 +1,7 @@
 import turtle
 import random
 
+'''
 def draw_circle(color, size, x, y):
     # draw a circle of radius equals to size at x, y coordinates and paint it with color
     turtle.penup()
@@ -33,3 +34,56 @@ def initilizing(xpos, ypos, vx, vy, ball_color, canvas_width, canvas_height, bal
         vx.append(random.randint(1, 0.01*canvas_width))
         vy.append(random.randint(1, 0.01*canvas_height))
         ball_color.append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+'''
+
+# class Ball:
+#     def __init__(self, speed, size, canvas_width, canvas_height):
+#         self.location = self.initial_position(canvas_width, canvas_height)
+#         self.speed = speed
+#         self.color = ((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+#         self.size = size
+#
+#     def initial_position(self, canvas_width, canvas_height):
+#         x = random.randint(0, canvas_width)
+#         y = random.randint(0, canvas_height)
+#         return (x, y)
+#
+#     def move(self):
+#         self.xpos += self.vx
+#         self.ypos += self.vy
+
+class Ball:
+    def __init__(self, canvas_width, canvas_height, ball_radius):
+        # Initialize the ball with random position, velocity, color, and radius
+        self.x = random.randint(-1 * canvas_width + ball_radius, canvas_width - ball_radius)
+        self.y = random.randint(-1 * canvas_height + ball_radius, canvas_height - ball_radius)
+        self.vx = random.uniform(1, 0.01 * canvas_width)
+        self.vy = random.uniform(1, 0.01 * canvas_height)
+        self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        self.radius = ball_radius
+
+    def draw_circle(self):
+        # Draw the ball on the turtle canvas
+        turtle.penup()
+        turtle.color(self.color)
+        turtle.fillcolor(self.color)
+        turtle.goto(self.x, self.y)
+        turtle.pendown()
+        turtle.begin_fill()
+        turtle.circle(self.radius)
+        turtle.end_fill()
+
+    def move_circle(self, canvas_width, canvas_height):
+        # Move the ball and handle collisions with walls
+        self.x += self.vx
+        self.y += self.vy
+
+        if abs(self.x + self.vx) > (canvas_width - self.radius):
+            self.vx = -self.vx
+
+        if abs(self.y + self.vy) > (canvas_height - self.radius):
+            self.vy = -self.vy
+
+def initilizing(canvas_width, canvas_height, ball_radius, num_balls):
+    # Create a list of Ball objects with random properties
+    return [Ball(canvas_width, canvas_height, ball_radius) for _ in range(num_balls)]
